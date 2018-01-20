@@ -42,22 +42,24 @@
       },
       menu: {
         type: Array,
-        default: [{
-          link: '/list',
-          title: '获取用户',
-          icon: 'el-icon-tickets',
-          active: '1'
-        }, {
-          link: '/user/create',
-          title: '创建用户',
-          icon: 'el-icon-plus',
-          active: '2'
-        }, {
-          link: '/open',
-          title: '远程开门',
-          icon: 'el-icon-phone-outline',
-          active: '3'
-        }]
+        default: function() {
+          return [{
+            link: '/list',
+            title: '获取用户',
+            icon: 'el-icon-tickets',
+            active: '1'
+          }, {
+            link: '/user/create',
+            title: '创建用户',
+            icon: 'el-icon-plus',
+            active: '2'
+          }, {
+            link: '/open',
+            title: '远程开门',
+            icon: 'el-icon-phone-outline',
+            active: '3'
+          }]
+        }
       }
     },
     data () {

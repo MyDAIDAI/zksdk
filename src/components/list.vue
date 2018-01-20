@@ -92,13 +92,13 @@
             this.tableData = []
             data.forEach(ele => {
               let usertype = ele.privilege === 3 ? '管理员' : '普通用户'
-              let pass = ele.enable ? '是' : '否'
+              let pass = ele.enabled ? '是' : '否'
               this.tableData.push({
                 userid: ele.userId,
                 username: ele.name,
                 usertype: usertype,
                 pass: pass,
-                set: ele.enable
+                set: ele.enabled
               })
             })
           }
