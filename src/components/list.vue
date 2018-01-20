@@ -155,8 +155,16 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          if (message === '删除') {
-            this.deleteUser(row)            
+          switch (message) {
+            case '删除': 
+              this.deleteUser(row)
+              break
+            case '禁用':
+              this.disableUser(row)
+              break
+            case '允许':
+              this.enableUser(row)
+              break
           }
         })
       },
