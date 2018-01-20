@@ -30,8 +30,8 @@
             label="门禁设置"
             width="100">
             <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small" v-if="scope.row.set">禁用</el-button>
-              <el-button type="text" size="small" v-else>允许</el-button>
+              <el-button @click="sureHandler(scope.row, '禁用')" type="text" size="small" v-if="scope.row.set">禁用</el-button>
+              <el-button @click="sureHandler(scope.row, '允许')" type="text" size="small" v-else>允许</el-button>
             </template>
           </el-table-column>
           <el-table-column
@@ -39,8 +39,8 @@
             label="操作"
             width="100">
             <template slot-scope="scope">
-              <el-button @click="modifyData(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="sureDelete(scope.row)" type="text" size="small">删除</el-button>
+              <el-button @click="modifyUser(scope.row)" type="text" size="small">修改</el-button>
+              <el-button @click="sureHandler(scope.row, '删除')" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -59,7 +59,7 @@
 
 <script>
   import layout from '@/layouts/layout'
-  import {getData, deleteData} from '@/util/http'
+  import {getData, deleteData, putData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   export default {
     name: 'user',
@@ -92,13 +92,13 @@
             this.tableData = []
             data.forEach(ele => {
               let usertype = ele.privilege === 3 ? '管理员' : '普通用户'
-              let pass = ele.enable ? '是' : '否'
+              let pass = ele.enabled ? '是' : '否'
               this.tableData.push({
                 userid: ele.userId,
                 username: ele.name,
                 usertype: usertype,
                 pass: pass,
-                set: ele.enable
+                set: ele.enabled
               })
             })
           }
@@ -108,12 +108,12 @@
         this.page = currentPage
         this._getUser()
       },
-      modifyData (row) {
+      modifyUser (row) {
         this.$router.push({
           path: `/user/${row.userid}`
         })
       },
-      deleteData (row) {
+      deleteUser (row) {
         deleteData('/zk/deleteUser', {
           userId: row.userid
         }).then((res) => {
@@ -125,15 +125,41 @@
           }
         })
       },
-      sureDelete(row) {
-        this.$confirm('确定删除该用户?', '提示', {
+      disableUser (row) {
+        putData('/zk/disableUser', {
+          userId: row.userid
+        }).then((res) => {
+          if (res.code === ERR_OK) {
+            this.$message({
+              message: '禁用成功',
+              type: 'success'
+            })
+          }
+        })
+      },
+      enableUser (row) {
+        putData('/zk/enableUser', {
+          userId: row.userid
+        }).then((res) => {
+          if (res.code === ERR_OK) {
+            this.$message({
+              message: '激活成功',
+              type: 'success'
+            })
+          }
+        })
+      },
+      sureHandler(row, message) {
+        this.$confirm(`确定${message}该用户?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.deleteData(row)
+          if (message === '删除') {
+            this.deleteUser(row)            
+          }
         })
-      }
+      },
     }
   }
 </script>

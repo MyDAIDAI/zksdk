@@ -10,7 +10,7 @@
             <el-input v-model="form.password" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item label="用户类型">
-            <el-select v-model="form.privilege" placeholder="请选择用户类型">
+            <el-select v-model="form.usertype" placeholder="请选择用户类型">
               <el-option label="管理员" value="管理员"></el-option>
               <el-option label="普通用户" value="普通用户"></el-option>
             </el-select>
@@ -59,7 +59,7 @@
         form: {
           name: '',
           password: '',
-          privilege: '',
+          usertype: '',
           enabled: true
         },
         activeIndex: '2',
@@ -72,12 +72,13 @@
       this.userId = this.$route.params.id
       this.isModify = this.userId === 'create' ? false : true
       if (this.isModify) {
-        this.menu.push({
+        this.menuData.push({
           link: `/user/${this.userId}`,
           title: '修改用户',
           icon: 'el-icon-edit',
           active: '4'
         })
+        this.activeIndex = '4'
       }
     },
     mounted () {
@@ -94,14 +95,14 @@
             let data = res.data
             this.form.name = data.name
             this.form.password = data.password
-            this.form.privilege = data.privilege === 3 ? '管理员' : '普通用户'
+            this.form.usertype = data.privilege === 3 ? '管理员' : '普通用户'
             this.form.enabled = data.enabled
           }
         })
       },
       createUser () {
-        this.form.privilege = this.form.privilege === '管理员' ? 3 : 0
-        let data = Object.assign({}, this.form, {userId: parseInt(Math.random() * 100 + 20).toString()})
+        this.form.privilege = this.form.usertype === '管理员' ? 3 : 0
+        let data = Object.assign({}, this.form, {userId: parseInt(Math.random() * 100 + 1).toString()})
         postData('/zk/createUser', data).then((res) => {
           this.$message({
             message: '创建用户成功',
@@ -110,10 +111,18 @@
         })
       },
       modifyUser () {
-        this.form.privilege = this.form.privilege === '管理员' ? 3 : 0
+        this.form.privilege = this.form.usertype === '管理员' ? 3 : 0
         let data = Object.assign({}, this.form, {userId: this.userId})
         putData('/zk/updateUser', data).then((res) => {
-          console.log(res)
+          this.$message({
+            message: '用户信息修改成功, 跳转用户列表',
+            type: 'success',
+            onClose: () => {
+              this.$router.push({
+                path: '/list'
+              })
+            }
+          })
         })
       }
     }
