@@ -120,7 +120,10 @@
           if (res.code === ERR_OK) {
             this.$message({
               message: '删除成功',
-              type: 'success'
+              type: 'success',
+              onClose: () => {
+                this._getUser()
+              }
             })
           }
         })
@@ -132,7 +135,10 @@
           if (res.code === ERR_OK) {
             this.$message({
               message: '禁用成功',
-              type: 'success'
+              type: 'success',
+              onClose: () => {
+                this._getUser()
+              }
             })
           }
         })
@@ -143,8 +149,11 @@
         }).then((res) => {
           if (res.code === ERR_OK) {
             this.$message({
-              message: '激活成功',
-              type: 'success'
+              message: '允许成功',
+              type: 'success',
+              onClose: () => {
+                this._getUser()
+              }
             })
           }
         })
