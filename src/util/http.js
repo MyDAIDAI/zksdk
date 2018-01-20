@@ -18,3 +18,11 @@ export function putData (url, data) {
     return Promise.resolve(res.data)
   })
 }
+
+export function deleteData (url, data) {
+  return axios.delete(url, {
+    params: data
+  }).then((res) => {
+    return Promise.resolve(res.data)
+  })
+}

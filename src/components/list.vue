@@ -40,7 +40,7 @@
             width="100">
             <template slot-scope="scope">
               <el-button @click="modifyData(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="deleteData(scope.row)" type="text" size="small">删除</el-button>
+              <el-button @click="sureDelete(scope.row)" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -59,7 +59,7 @@
 
 <script>
   import layout from '@/layouts/layout'
-  import {getData} from '@/util/http'
+  import {getData, deleteData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   export default {
     name: 'user',
@@ -111,6 +111,27 @@
       modifyData (row) {
         this.$router.push({
           path: `/user/${row.userid}`
+        })
+      },
+      deleteData (row) {
+        deleteData('/zk/deleteUser', {
+          userId: row.userid
+        }).then((res) => {
+          if (res.code === ERR_OK) {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+          }
+        })
+      },
+      sureDelete(row) {
+        this.$confirm('确定删除该用户?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteData(row)
         })
       }
     }
