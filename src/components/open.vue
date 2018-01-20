@@ -39,6 +39,12 @@
               type: 'success'
             })
             this.isOpen = true
+          } else {
+            this.$message({
+              message: res.msg,
+              type: 'error',
+              duration: DURATION
+            })
           }
         })
       }
