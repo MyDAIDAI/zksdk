@@ -6,8 +6,8 @@
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="form.password" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item label="用户类型" prop="usertype">
             <el-select v-model="form.usertype" placeholder="请选择用户类型">
@@ -15,7 +15,7 @@
               <el-option label="普通用户" value="普通用户"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="通行状态">
+          <el-form-item label="通行状态" prop="enabled">
             <el-switch v-model="form.enabled" :active-value="activeValue" :inactive-value="inactiveValue" active-text="允许" inactive-text="禁用"></el-switch>
           </el-form-item>
           <el-form-item>
@@ -65,6 +65,8 @@
         rules: {
           name:  [{ required: true, message: '请输入姓名', trigger: 'blur' }],
           usertype:  [{ required: true, message: '请选择用户类型', trigger: 'change' }],
+          password: [],
+          enabled: []
         },
         activeIndex: '2',
         activeValue: true,
@@ -113,7 +115,7 @@
               this.modifyUser()
             }
           } else {
-            return false;
+            return false
           }
         })
       },
@@ -121,25 +123,32 @@
         this.form.privilege = this.form.usertype === '管理员' ? 3 : 0
         let data = Object.assign({}, this.form, {userId: parseInt(Math.random() * 100 + 1).toString()})
         postData('/zk/createUser', data).then((res) => {
-          this.$message({
-            message: '创建用户成功',
-            type: 'success'
-          })
+          if (res.code === ERR_OK) {
+            this.$message({
+              message: '创建用户成功',
+              type: 'success',
+              onClose: () => {
+                this.$refs.form.resetFields()
+              }
+            })
+          }
         })
       },
       modifyUser () {
         this.form.privilege = this.form.usertype === '管理员' ? 3 : 0
         let data = Object.assign({}, this.form, {userId: this.userId})
         putData('/zk/updateUser', data).then((res) => {
-          this.$message({
-            message: '用户信息修改成功, 跳转用户列表',
-            type: 'success',
-            onClose: () => {
-              this.$router.push({
-                path: '/list'
-              })
-            }
-          })
+          if (res.code === ERR_OK) {
+            this.$message({
+              message: '用户信息修改成功, 跳转用户列表',
+              type: 'success',
+              onClose: () => {
+                this.$router.push({
+                  path: '/list'
+                })
+              }
+            })
+          }
         })
       }
     }
