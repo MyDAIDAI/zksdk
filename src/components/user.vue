@@ -2,14 +2,14 @@
   <div class="user">
     <layout :activeIndex="activeIndex" :menu="menuData">
       <div style="width: 50%; padding: 50px" >
-        <el-form ref="form" :model="form" label-width="100px">
-          <el-form-item label="姓名">
+        <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+          <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
           <el-form-item label="密码">
             <el-input v-model="form.password" placeholder="请输入密码"></el-input>
           </el-form-item>
-          <el-form-item label="用户类型">
+          <el-form-item label="用户类型" prop="usertype">
             <el-select v-model="form.usertype" placeholder="请选择用户类型">
               <el-option label="管理员" value="管理员"></el-option>
               <el-option label="普通用户" value="普通用户"></el-option>
@@ -19,8 +19,8 @@
             <el-switch v-model="form.enabled" :active-value="activeValue" :inactive-value="inactiveValue" active-text="允许" inactive-text="禁用"></el-switch>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="createUser" v-if="!isModify">创建</el-button>
-            <el-button type="primary" @click="modifyUser" v-else>修改</el-button>
+            <el-button type="primary" @click="validateUser('create')" v-if="!isModify">创建</el-button>
+            <el-button type="primary" @click="validateUser('modify')" v-else>修改</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -62,6 +62,10 @@
           usertype: '',
           enabled: true
         },
+        rules: {
+          name:  [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+          usertype:  [{ required: true, message: '请选择用户类型', trigger: 'change' }],
+        },
         activeIndex: '2',
         activeValue: true,
         inactiveValue: false,
@@ -97,6 +101,19 @@
             this.form.password = data.password
             this.form.usertype = data.privilege === 3 ? '管理员' : '普通用户'
             this.form.enabled = data.enabled
+          }
+        })
+      },
+      validateUser (message) {
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+            if (message === 'create') {
+              this.createUser()
+            } else {
+              this.modifyUser()
+            }
+          } else {
+            return false;
           }
         })
       },
