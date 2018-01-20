@@ -127,6 +127,12 @@
                 this._getUser()
               }
             })
+          } else {
+            this.$message({
+              message: res.msg,
+              type: 'error',
+              duration: DURATION
+            })
           }
         })
       },
@@ -143,6 +149,12 @@
                 this._getUser()
               }
             })
+          } else {
+            this.$message({
+              message: res.msg,
+              type: 'error',
+              duration: DURATION
+            })
           }
         })
       },
@@ -158,6 +170,12 @@
               onClose: () => {
                 this._getUser()
               }
+            })
+          } else {
+            this.$message({
+              message: res.msg,
+              type: 'error',
+              duration: DURATION
             })
           }
         })
