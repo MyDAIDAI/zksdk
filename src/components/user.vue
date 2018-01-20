@@ -101,7 +101,7 @@
       },
       createUser () {
         this.form.privilege = this.form.privilege === '管理员' ? 3 : 0
-        let data = Object.assign({}, this.form, {userId: parseInt(Math.random() * 10 + 1).toString()})
+        let data = Object.assign({}, this.form, {userId: parseInt(Math.random() * 100 + 20).toString()})
         postData('/zk/createUser', data).then((res) => {
           this.$message({
             message: '创建用户成功',
