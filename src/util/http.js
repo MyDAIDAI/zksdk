@@ -8,13 +8,15 @@ export function getData (url, data) {
   })
 }
 export function postData (url, data) {
-  return axios.post(url, data).then((res) => {
+  let params = fromData(data)
+  return axios.post(url, params).then((res) => {
     return Promise.resolve(res.data)
   })
 }
 
 export function putData (url, data) {
-  return axios.put(url, data).then((res) => {
+  let params = fromData(data)
+  return axios.put(url, params).then((res) => {
     return Promise.resolve(res.data)
   })
 }
@@ -25,4 +27,15 @@ export function deleteData (url, data) {
   }).then((res) => {
     return Promise.resolve(res.data)
   })
+}
+// 将请求数据json数据转换为application/x-www-form-urlencoded
+function fromData (data) {
+  if (!data) {
+    return false
+  }
+  var params = new URLSearchParams();
+  for (let key in data) {
+    params.append(key, data[key])    
+  }
+  return params
 }

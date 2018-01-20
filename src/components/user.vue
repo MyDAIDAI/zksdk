@@ -30,7 +30,7 @@
 
 <script>
   import layout from '@/layouts/layout'
-  import {getData, putData} from '@/util/http'
+  import {getData, putData, postData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   export default {
     name: 'user',
@@ -81,7 +81,9 @@
       }
     },
     mounted () {
-      this._getUserInfo()
+      if (this.isModify) {
+        this._getUserInfo()
+      }
     },
     methods: {
       _getUserInfo () {
@@ -98,13 +100,17 @@
         })
       },
       createUser () {
-        postData('/zk/createUser', this.form).then((res) => {
-          console.log(res)
+        this.form.privilege = this.form.privilege === '管理员' ? 3 : 0
+        let data = Object.assign({}, this.form, {userId: parseInt(Math.random() * 10 + 1).toString()})
+        postData('/zk/createUser', data).then((res) => {
+          this.$message({
+            message: '创建用户成功',
+            type: 'success'
+          })
         })
       },
       modifyUser () {
         this.form.privilege = this.form.privilege === '管理员' ? 3 : 0
-        console.log(typeof this.userId)
         let data = Object.assign({}, this.form, {userId: this.userId})
         putData('/zk/updateUser', data).then((res) => {
           console.log(res)
