@@ -32,6 +32,7 @@
   import layout from '@/layouts/layout'
   import {getData, putData, postData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
+  const DURATION = 2000
   export default {
     name: 'user',
     components: {
@@ -127,6 +128,7 @@
             this.$message({
               message: '创建用户成功',
               type: 'success',
+              duration: DURATION,
               onClose: () => {
                 this.$refs.form.resetFields()
               }
@@ -142,6 +144,7 @@
             this.$message({
               message: '用户信息修改成功, 跳转用户列表',
               type: 'success',
+              duration: DURATION,              
               onClose: () => {
                 this.$router.push({
                   path: '/list'

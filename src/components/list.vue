@@ -61,6 +61,7 @@
   import layout from '@/layouts/layout'
   import {getData, deleteData, putData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
+  const DURATION = 2000
   export default {
     name: 'user',
     components: {
@@ -121,6 +122,7 @@
             this.$message({
               message: '删除成功',
               type: 'success',
+              duration: DURATION,
               onClose: () => {
                 this._getUser()
               }
@@ -136,6 +138,7 @@
             this.$message({
               message: '禁用成功',
               type: 'success',
+              duration: DURATION,
               onClose: () => {
                 this._getUser()
               }
@@ -151,6 +154,7 @@
             this.$message({
               message: '允许成功',
               type: 'success',
+              duration: DURATION,
               onClose: () => {
                 this._getUser()
               }
