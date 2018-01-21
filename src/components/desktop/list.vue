@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import layout from '@/layouts/layout'
+  import layout from '@/layouts/Desktop'
   import {getData, deleteData, putData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   const DURATION = 2000
@@ -142,8 +142,11 @@
       },
       // 批量禁用用户数据发送
       batchDisableUser () {
+        let userId = this.selectedData.map((elem) => {
+          return elem.userid
+        })
         putData('/zk/batchDisable', {
-          userId: this.selectedData
+          userIds: userId
         }).then((res) => {
           this.resMessage(res, '禁用成功')
         })
@@ -158,8 +161,11 @@
       },
       // 批量运行用户数据发送
       batchEnableUser () {
+        let userId = this.selectedData.map((elem) => {
+          return elem.userid
+        })
         putData('/zk/batchEnable', {
-          userId: this.selectedData
+          userIds: userId
         }).then((res) => {
           this.resMessage(res, '允许成功')
         })

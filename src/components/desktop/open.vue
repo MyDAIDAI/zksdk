@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import layout from '@/layouts/layout'
+  import layout from '@/layouts/Desktop'
   import {putData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   export default {
@@ -23,7 +23,7 @@
       layout
     },
     created() {
-      this.activeIndex = '3'
+      this.activeIndex = '4'
     },
     data() {
       return {

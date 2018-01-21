@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import layout from '@/layouts/layout'
+  import layout from '@/layouts/Desktop'
   import {getData, putData, postData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   const DURATION = 2000
@@ -51,10 +51,15 @@
           icon: 'el-icon-plus',
           active: '2'
         }, {
+          link: '/query',
+          title: '查询用户',
+          icon: 'el-icon-search',
+          active: '3'
+        }, {
           link: '/open',
           title: '远程开门',
           icon: 'el-icon-phone-outline',
-          active: '3'
+          active: '4'
         }],
         userId: '',
         form: {

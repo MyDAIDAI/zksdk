@@ -42,7 +42,7 @@
       },
       menu: {
         type: Array,
-        default: function() {
+        default: function () {
           return [{
             link: '/list',
             title: '获取用户',
@@ -54,10 +54,15 @@
             icon: 'el-icon-plus',
             active: '2'
           }, {
+            link: '/query',
+            title: '查询用户',
+            icon: 'el-icon-search',
+            active: '3'
+          }, {
             link: '/open',
             title: '远程开门',
             icon: 'el-icon-phone-outline',
-            active: '3'
+            active: '4'
           }]
         }
       }
