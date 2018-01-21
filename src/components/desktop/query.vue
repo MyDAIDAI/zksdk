@@ -48,6 +48,7 @@
   import layout from '@/layouts/Desktop'
   import {getData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
+  import {dateToTimestamp} from '@/util/date'
   export default {
     name: 'query',
     components: {
@@ -75,8 +76,9 @@
         }) 
       },
       queryDataFun () {
-        let start = Date.parse(new Date(this.dateValue[0]))
-        let end = Date.parse(new Date(this.dateValue[1]))
+        let start = dateToTimestamp(this.dateValue[0])
+        let end =dateToTimestamp(this.dateValue[1])
+        console.log(start, end)
         getData('/zk/listRecord', {
           userId: this.queryData,
           start: start,
