@@ -5210,7 +5210,7 @@ strip-json-comments@~2.0.1:
 
 stylus-loader@^3.0.1:
   version "3.0.1"
-  resolved "http://registry.npm.taobao.org/stylus-loader/download/stylus-loader-3.0.1.tgz#77f4b34fd030d25b2617bcf5513db5b0730c4089"
+  resolved "https://registry.yarnpkg.com/stylus-loader/-/stylus-loader-3.0.1.tgz#77f4b34fd030d25b2617bcf5513db5b0730c4089"
   dependencies:
     loader-utils "^1.0.2"
     lodash.clonedeep "^4.5.0"
@@ -5218,7 +5218,7 @@ stylus-loader@^3.0.1:
 
 stylus@^0.54.5:
   version "0.54.5"
-  resolved "http://registry.npm.taobao.org/stylus/download/stylus-0.54.5.tgz#42b9560931ca7090ce8515a798ba9e6aa3d6dc79"
+  resolved "https://registry.yarnpkg.com/stylus/-/stylus-0.54.5.tgz#42b9560931ca7090ce8515a798ba9e6aa3d6dc79"
   dependencies:
     css-parse "1.7.x"
     debug "*"
