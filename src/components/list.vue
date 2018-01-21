@@ -142,6 +142,11 @@
       },
       // 批量禁用用户数据发送
       batchDisableUser () {
+        putData('/zk/batchDisable', {
+          userId: this.selectedData
+        }).then((res) => {
+          this.resMessage(res, '禁用成功')
+        })
       },
       // 允许用户数据发送
       enableUser (row) {
@@ -153,6 +158,11 @@
       },
       // 批量运行用户数据发送
       batchEnableUser () {
+        putData('/zk/batchEnable', {
+          userId: this.selectedData
+        }).then((res) => {
+          this.resMessage(res, '允许成功')
+        })
       },
       // response提示
       resMessage (res, message) {
