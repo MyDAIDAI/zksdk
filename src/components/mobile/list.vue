@@ -1,18 +1,10 @@
 <template>
-  <layout :title="title"></layout>
+  <div class="list"></div>
 </template>
 
 <script>
-import layout from '@/layouts/Mobile'
 export default {
-  name: 'list',
-  components: {
-    layout
-  },
-  created () {
-    this.title = '中控sdk'
-  }
-
+  name: 'list'
 }
 </script>
 

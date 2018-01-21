@@ -1,14 +1,21 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view class="child-view"></router-view>
+      <tab></tab>
+      <!-- <keep-alive>
+        <router-view class="child-view"></router-view>
+      </keep-alive> -->
     </transition>
   </div>
 </template>
 
 <script>
+import Tab from '@/base/tab/tab'
 export default {
   name: 'app',
+  components: {
+    Tab
+  },
   data () {
     return {
       transitionName: 'slide-left'
