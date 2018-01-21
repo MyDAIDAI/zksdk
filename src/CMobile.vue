@@ -25,14 +25,13 @@ export default {
 </script>
 
 <style>
+  html, body, #app {
+    height: 100%
+  }
   body {
-    background: #fcfcfc;
+    background-color: #fff;
+    overflow: hidden
   }
-
-  #app {
-    color: #2c3e50;
-  }
-
   .child-view {
     position: absolute;
     top: 0;
@@ -40,7 +39,6 @@ export default {
     bottom:  0;
     left:  0;
     overflow: auto;
-    padding-bottom: 60px;
     transition: all .5s cubic-bezier(.55, 0, .1, 1);
   }
 
