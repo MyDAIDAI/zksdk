@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import layout from '@/layouts/layout'
+  import layout from '@/layouts/Desktop'
   import {getData, deleteData, putData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   const DURATION = 2000
