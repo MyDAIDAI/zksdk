@@ -2211,7 +2211,7 @@ fast-json-stable-stringify@^2.0.0:
 
 fastclick@^1.0.6:
   version "1.0.6"
-  resolved "http://registry.npm.taobao.org/fastclick/download/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
+  resolved "https://registry.yarnpkg.com/fastclick/-/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
 
 fastparse@^1.1.1:
   version "1.1.1"
