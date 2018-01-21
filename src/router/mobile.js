@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import List from '@/components/mobile/list'
 
 Vue.use(Router)
 
@@ -9,16 +10,6 @@ export default new Router({
       path: '/list',
       name: 'List',
       component: List
-    },
-    {
-      path: '/open',
-      name: 'Open',
-      component: Open
-    },
-    {
-      path: '/user/:id',
-      name: 'User',
-      component: User
-    },
+    }
   ]
 })
