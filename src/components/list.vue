@@ -1,11 +1,22 @@
 <template>
   <div>
     <layout :activeIndex="activeIndex">
-      <div style="padding: 40px">
+      <el-row style="padding: 30px">
+        <el-col :span="24" style="display: flex; justify-content: flex-end">
+          <el-button type="primary" icon="el-icon-error" @click="sureHandler('禁用选择')">禁用</el-button>
+          <el-button type="primary" icon="el-icon-success" @click="sureHandler('允许选择')">允许</el-button>
+        </el-col>
+      </el-row>
+      <div style="padding: 0 30px">
         <el-table
           :data="tableData"
+          @selection-change="selectData"
           border
           style="width: 100%">
+           <el-table-column
+            type="selection"
+            width="55">
+          </el-table-column>
           <el-table-column
             prop="userid"
             label="用户ID"
@@ -30,8 +41,8 @@
             label="门禁设置"
             width="100">
             <template slot-scope="scope">
-              <el-button @click="sureHandler(scope.row, '禁用')" type="text" size="small" v-if="scope.row.set">禁用</el-button>
-              <el-button @click="sureHandler(scope.row, '允许')" type="text" size="small" v-else>允许</el-button>
+              <el-button @click="sureHandler('禁用', scope.row)" type="text" size="small" v-if="scope.row.set">禁用</el-button>
+              <el-button @click="sureHandler('允许', scope.row)" type="text" size="small" v-else>允许</el-button>
             </template>
           </el-table-column>
           <el-table-column
@@ -40,7 +51,7 @@
             width="100">
             <template slot-scope="scope">
               <el-button @click="modifyUser(scope.row)" type="text" size="small">修改</el-button>
-              <el-button @click="sureHandler(scope.row, '删除')" type="text" size="small">删除</el-button>
+              <el-button @click="sureHandler('删除', scope.row)" type="text" size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -75,13 +86,15 @@
         tableData: [],
         total: 0,
         pageSize: 5,
-        page: 1
+        page: 1,
+        selectedData: []
       }
     },
     mounted () {
       this._getUser()
     },
     methods: {
+      // 获取列表数据
       _getUser () {
         getData('/zk/listUser', {
           page: this.page,
@@ -105,83 +118,70 @@
           }
         })
       },
-      changeTable (currentPage) {
-        this.page = currentPage
-        this._getUser()
-      },
+      // 修改用户页面跳转
       modifyUser (row) {
         this.$router.push({
           path: `/user/${row.userid}`
         })
       },
+      // 删除用户数据发送
       deleteUser (row) {
         deleteData('/zk/deleteUser', {
           userId: row.userid
         }).then((res) => {
-          if (res.code === ERR_OK) {
-            this.$message({
-              message: '删除成功',
-              type: 'success',
-              duration: DURATION,
-              onClose: () => {
-                this._getUser()
-              }
-            })
-          } else {
-            this.$message({
-              message: res.msg,
-              type: 'error',
-              duration: DURATION
-            })
-          }
+          this.resMessage(res, '删除成功')
         })
       },
+      // 禁用用户数据发送
       disableUser (row) {
         putData('/zk/disableUser', {
           userId: row.userid
         }).then((res) => {
-          if (res.code === ERR_OK) {
-            this.$message({
-              message: '禁用成功',
-              type: 'success',
-              duration: DURATION,
-              onClose: () => {
-                this._getUser()
-              }
-            })
-          } else {
-            this.$message({
-              message: res.msg,
-              type: 'error',
-              duration: DURATION
-            })
-          }
+          this.resMessage(res, '禁用成功')
         })
       },
+      // 批量禁用用户数据发送
+      batchDisableUser () {
+      },
+      // 允许用户数据发送
       enableUser (row) {
         putData('/zk/enableUser', {
           userId: row.userid
         }).then((res) => {
-          if (res.code === ERR_OK) {
-            this.$message({
-              message: '允许成功',
-              type: 'success',
-              duration: DURATION,
-              onClose: () => {
-                this._getUser()
-              }
-            })
-          } else {
-            this.$message({
-              message: res.msg,
-              type: 'error',
-              duration: DURATION
-            })
-          }
+          this.resMessage(res, '允许成功')
         })
       },
-      sureHandler(row, message) {
-        this.$confirm(`确定${message}该用户?`, '提示', {
+      // 批量运行用户数据发送
+      batchEnableUser () {
+      },
+      // response提示
+      resMessage (res, message) {
+        if (res.code === ERR_OK) {
+          this.$message({
+            message: message,
+            type: 'success',
+            duration: DURATION,
+            onClose: () => {
+              this._getUser()
+            }
+          })
+        } else {
+          this.$message({
+            message: res.msg,
+            type: 'error',
+            duration: DURATION
+          })
+        }
+      },
+      // 操作提示处理
+      sureHandler(message, row) {
+        if ((message === '禁用选择' || message === '允许选择') && !this.selectedData.length) {
+          this.$alert('您还未选择数据！', '操作提示', {
+            confirmButtonText: '确定',
+          })
+          return
+        }
+        this.$confirm(`确定${message}用户?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -196,8 +196,23 @@
             case '允许':
               this.enableUser(row)
               break
+            case '禁用选择':
+              this.batchDisableUser(row)
+              break
+            case '允许选择':
+              this.batchEnableUser(row)
+              break
           }
         })
+      },
+      // 表格选择
+      selectData (selection) {
+        this.selectedData = selection
+      },
+      // 表格翻页
+      changeTable (currentPage) {
+        this.page = currentPage
+        this._getUser()
       },
     }
   }
