@@ -1,20 +1,20 @@
 <template>
   <div class="query">
     <layout :activeIndex="activeIndex">
-      <el-row style="display: flex;justify-content: flex-end;margin:30px;">
-        <el-col :span="10">
-           <el-date-picker
-            v-model="dateValue"
-            type="daterange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            @change="queryDataFun">
-          </el-date-picker>
-        </el-col>
-        <el-col :span="6">
-          <div>
-            <el-input placeholder="请输入查询用户ID" v-model="queryData" @change="queryDataFun">
+      <el-row style="margin:30px;">
+        <el-col :span="24" style="display: flex;justify-content: flex-end;">
+          <div style="width: 400px; display: inline-block">
+            <el-date-picker
+              v-model="dateValue"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              @change="queryDataFun">
+            </el-date-picker>
+          </div>
+          <div style="width: 200px; display: inline-block">
+            <el-input placeholder="请输入查询姓名" v-model="queryData" @change="queryDataFun">
               <el-button slot="append" icon="el-icon-search" @click="queryDataFun"></el-button>
             </el-input>
           </div>
@@ -48,6 +48,7 @@
   import layout from '@/layouts/Desktop'
   import {getData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
+  import {dateToTimestamp} from '@/util/date'
   export default {
     name: 'query',
     components: {
@@ -75,10 +76,11 @@
         }) 
       },
       queryDataFun () {
-        let start = Date.parse(new Date(this.dateValue[0]))
-        let end = Date.parse(new Date(this.dateValue[1]))
+        let start = dateToTimestamp(this.dateValue[0])
+        let end =dateToTimestamp(this.dateValue[1])
+        console.log(start, end)
         getData('/zk/listRecord', {
-          userId: this.queryData,
+          name: this.queryData,
           start: start,
           end: end
         }).then((res) => {
