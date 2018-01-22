@@ -73,6 +73,7 @@
   import {getData, deleteData, putData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
   const DURATION = 2000
+  const PAGE_SIZE = 15
   export default {
     name: 'user',
     components: {
@@ -85,7 +86,7 @@
       return {
         tableData: [],
         total: 0,
-        pageSize: 5,
+        pageSize: PAGE_SIZE,
         page: 1,
         selectedData: []
       }
@@ -98,7 +99,7 @@
       _getUser () {
         getData('/zk/listUser', {
           page: this.page,
-          pageSize: 5
+          pageSize: PAGE_SIZE
         }).then((res) => {
           if (res.code === ERR_OK) {
             let data = res.data.list
@@ -243,7 +244,7 @@
   .block {
     display: flex;
     justify-content: flex-end;
-    padding-right: 40px
+    padding-right: 30px
   }
 </style>
 
