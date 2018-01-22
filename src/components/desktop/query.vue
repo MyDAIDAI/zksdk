@@ -99,7 +99,7 @@
         }).then((res) => {
           if (res.code === ERR_OK) {
             this.total = res.data.notes
-            let data = eval(res.data.list)
+            let data = res.data.list ? eval(res.data.list) : []
             this.tableData = data.map(ele => {
               return {
                 name: ele.name,
