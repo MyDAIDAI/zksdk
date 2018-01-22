@@ -56,7 +56,7 @@
   import layout from '@/layouts/Desktop'
   import {getData} from '@/util/http'
   import {ERR_OK} from '@/api/config'
-  import {dateToTimestamp} from '@/util/date'
+  import {dateToTimestamp, timestampToDate} from '@/util/date'
   const PAGE_SIZE = 15
   export default {
     name: 'query',
@@ -99,7 +99,14 @@
         }).then((res) => {
           if (res.code === ERR_OK) {
             this.total = res.data.notes
-            this.tableData = eval(res.data.list)
+            let data = eval(res.data.list)
+            this.tableData = data.map(ele => {
+              return {
+                name: ele.name,
+                status: ele.status,
+                time: timestampToDate(ele.time)
+              }
+            })
           }
         }) 
       },
