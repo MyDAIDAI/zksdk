@@ -93,7 +93,7 @@
         getData('/zk/listRecord',{
           name: this.queryData,
           startTime: start,
-          endTime: start,
+          endTime: end,
           page: this.page,
           pageSize: PAGE_SIZE
         }).then((res) => {
