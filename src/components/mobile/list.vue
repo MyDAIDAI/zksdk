@@ -33,8 +33,8 @@ export default {
       total: 0,
       pageSize: 5,
       page: 1,
+      totalPage: 0,
       tableData: [],
-      items: [],
       options: {
         pullDownRefresh: {
           threshold: 90,
@@ -44,7 +44,7 @@ export default {
         pullUpLoad: {
           threshold: 0,
           txt: {
-            more: '加载中',
+            more: '加载完成',
             noMore: '没有数据咯'
           }
         }
@@ -55,41 +55,55 @@ export default {
     this._getUser()
   },
   methods: {
-    _getUser () {
-        getData('/zk/listUser', {
-          page: this.page,
-          pageSize: 15
-        }).then((res) => {
-          if (res.code === ERR_OK) {
-            let data = res.data.list
-            this.total = res.data.notes
+    _getUser (type) {
+      getData('/zk/listUser', {
+        page: this.page,
+        pageSize: 15
+      }).then((res) => {
+        if (res.code === ERR_OK) {
+          this.total = res.data.notes
+          this.totalPage = res.data.totalPage
+          if (type === 'pulldown') {
             this.tableData = []
-            data.forEach(ele => {
-              let usertype = ele.privilege === 3 ? '管理员' : '普通用户'
-              let pass = ele.enabled ? '是' : '否'
-              this.items.push(ele.name + ' - ' + usertype + ' - ' + pass)
-              this.tableData.push({
-                userid: ele.userId,
-                username: ele.name,
-                usertype: usertype,
-                pass: pass,
-                set: ele.enabled
-              })
-            })
+            this.tableData.push(...this.formateData(res.data.list))
+            this.$refs.scroll.refresh()
+            return         
           }
+          this.tableData.push(...this.formateData(res.data.list))
+        }
+      })
+    },
+    formateData (data) {
+      let ret = []
+      data.forEach(ele => {
+        let usertype = ele.privilege === 3 ? '管理员' : '普通用户'
+        let pass = ele.enabled ? '是' : '否'
+        ret.push({
+          userid: ele.userId,
+          username: ele.name,
+          usertype: usertype,
+          pass: pass,
+          set: ele.enabled
         })
-      },
+      })
+      return ret
+    },
     onPullingDown() {
       this.page = 1
       setTimeout(() => {
-        this._getUser()
+        this._getUser('pulldown')
       }, 1000)
     },
     onPullingUp() {
       // 更新数据
       this.page += 1
+      console.log(this.page)
       setTimeout(() => {
-        this._getUser()
+        if (this.page > this.totalPage) {
+          this.$refs.scroll.forceUpdate()
+        } else {
+          this._getUser()
+        }
       }, 1000)
     },
   }
