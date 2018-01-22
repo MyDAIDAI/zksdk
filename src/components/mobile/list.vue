@@ -3,10 +3,21 @@
     <div class="scroll-list-wrap">
        <cube-scroll
         ref="scroll"
-        :data="items"
+        :data="tableData"
         :options="options"
         @pulling-down="onPullingDown"
         @pulling-up="onPullingUp">
+        <ul class="list-wrapper">
+          <li @click="selectList(list,$event)" v-for="list in tableData" class="list-item border-1px">
+            <div class="list-content">
+              <h2 class="name">{{list.username}}</h2>
+              <!-- <p class="description">{{list.description}}</p> -->
+              <div class="extra">
+                <span class="type">用户类型：{{list.usertype}}</span><span>通行状态：{{list.pass}}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
       </cube-scroll>
      </div>
   </div>
@@ -56,7 +67,7 @@ export default {
             data.forEach(ele => {
               let usertype = ele.privilege === 3 ? '管理员' : '普通用户'
               let pass = ele.enabled ? '是' : '否'
-              this.items.push(ele.name + '-' + usertype)
+              this.items.push(ele.name + ' - ' + usertype + ' - ' + pass)
               this.tableData.push({
                 userid: ele.userId,
                 username: ele.name,
@@ -94,5 +105,49 @@ export default {
       border-radius: 5px
       transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
       overflow: hidden
-      background: #ffffff 
+      background: #ffffff
+      .cube-scroll-item
+        font-size: 16px
+        color: #666
+      .list-wrapper
+        .list-item
+          display: flex
+          padding: 18px
+          border-bottom: 1px solid rgba(7, 17, 27, 0.1)
+          &:last-child
+            border-none()
+            margin-bottom: 0
+          .list-content
+            flex: 1
+            .name
+              margin: 2px 0 8px 0
+              height: 14px
+              line-height: 14px
+              font-size: 14px
+              color: rgb(7, 17, 27)
+            .description, .extra
+              line-height: 10px
+              font-size: 10px
+              color: rgb(147, 153, 159)
+            .description
+              line-height: 12px
+              margin-bottom: 8px
+            .extra
+              .type
+                margin-right: 12px
+            .price
+              font-weight: 700
+              line-height: 24px
+              .now
+                margin-right: 8px
+                font-size: 14px
+                color: rgb(240, 20, 20)
+              .old
+                text-decoration: line-through
+                font-size: 10px
+                color: rgb(147, 153, 159)
+            .cartcontrol-wrapper
+              position: absolute
+              right: 0
+              bottom: 12px
 </style>
