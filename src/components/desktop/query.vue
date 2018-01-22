@@ -84,8 +84,12 @@
         if (type === 'query') {
           this.page = 1
         }
-        let start = this.dateValue[0] ? dateToTimestamp(this.dateValue[0]) : ''
-        let end = this.dateValue[1] ? dateToTimestamp(this.dateValue[1]) : ''
+        let start = ''
+        let end = ''
+        if (this.dateValue) {
+          start = this.dateValue[0] ? dateToTimestamp(this.dateValue[0]) : ''
+          end = this.dateValue[1] ? dateToTimestamp(this.dateValue[1]) : ''
+        }
         getData('/zk/listRecord',{
           name: this.queryData,
           startTime: start,
