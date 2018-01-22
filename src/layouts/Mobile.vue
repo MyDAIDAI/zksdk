@@ -2,7 +2,7 @@
   <div class="cube-page" :class="type">
     <header class="header">
       <h1>{{title}}</h1>
-      <i @click="back" class="cubeic-back"></i>
+      <i @click="back" class="cubeic-back" v-if="isBack"></i>
     </header>
     <div class="wrapper">
       <section v-show="desc" class="desc"><slot name="desc">{{desc}}</slot></section>
@@ -32,6 +32,10 @@
       content: {
         type: String,
         default: ''
+      },
+      isBack: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
