@@ -73,6 +73,8 @@ export default {
         }
       })
     },
+    selectList (){
+    },
     formateData (data) {
       let ret = []
       data.forEach(ele => {
