@@ -5,8 +5,10 @@ import Router from 'vue-router'
 import Mobile from './CMobile'
 import FastClick from 'fastclick'
 import router from './router/mobile'
+import Cube from 'cube-ui'
 
 Vue.use(Router)
+Vue.use(Cube)
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 
