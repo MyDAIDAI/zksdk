@@ -82,7 +82,7 @@
     .tab-render-content
       position: absolute;
       left: 0;
-      top: 50px;
+      top: 100px;
       right: 0;
       bottom: 0;
       margin-top: 15px;
