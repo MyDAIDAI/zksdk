@@ -8,7 +8,7 @@
         @pulling-down="onPullingDown"
         @pulling-up="onPullingUp">
         <ul class="list-wrapper">
-          <li @click="selectList(list,$event)" v-for="list in tableData" class="list-item border-1px">
+          <li @click="selectList(list,$event)" v-for="list in tableData" class="list-item border-1px" :key="list.username">
             <div class="list-content">
               <h2 class="name">{{list.username}}</h2>
               <!-- <p class="description">{{list.description}}</p> -->
@@ -72,6 +72,8 @@ export default {
           this.tableData.push(...this.formateData(res.data.list))
         }
       })
+    },
+    selectList (){
     },
     formateData (data) {
       let ret = []
