@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <div class="scroll-list-wrap">
-       <cube-scroll
+      <cube-scroll
         ref="scroll"
         :data="tableData"
         :options="options"

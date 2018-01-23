@@ -28,7 +28,7 @@
     {
       id: 2,
       name: '创建用户',
-      link: '/user'
+      link: '/create'
     },
     {
       id: 3,
@@ -43,10 +43,15 @@
   ]
 
   export default {
+    props: {
+      currentTabIndex: {
+        type: Number,
+        default: 1
+      }
+    },
     data() {
       return {
         navList: navList,  // 渲染的列表数据
-        currentTabIndex: 1 // 当前默认tab
       }
     },
     created () {
@@ -82,7 +87,7 @@
     .tab-render-content
       position: absolute;
       left: 0;
-      top: 100px;
+      top: 85px;
       right: 0;
       bottom: 0;
       margin-top: 15px;
