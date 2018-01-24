@@ -4,6 +4,7 @@ import List from '@/components/mobile/list'
 import Create from '@/components/mobile/create'
 import Query from '@/components/mobile/query'
 import Open from '@/components/mobile/open'
+import User from '@/components/mobile/user'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/open',
       name: 'Open',
       component: Open
+    },
+    {
+      path: '/user/:id',
+      name: 'User',
+      component: User
     },
   ]
 })

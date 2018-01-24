@@ -96,7 +96,10 @@ export default {
         }
       })
     },
-    selectList (){
+    selectList (list, event){
+      this.$router.push({
+        path: '/user/' + list.userid
+      })
     },
     formateData (data) {
       let ret = []
