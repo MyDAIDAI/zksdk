@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { tab } from 'utils/mixins.js'
+import { tab } from '@/util/mixins.js'
 export default {
   name: 'Tab',
   mixins: [tab],

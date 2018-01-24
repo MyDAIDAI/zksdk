@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { historyPush } from 'utils/mixins.js'
+import { historyPush } from '@/util/mixins.js'
 import Overlay from '../overlay'
 import Divider from '../divider'
 export default {
