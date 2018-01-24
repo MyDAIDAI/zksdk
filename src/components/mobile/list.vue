@@ -49,7 +49,8 @@
         end: false,
         total: 0,
         pageSize: PAGE_SIZE,
-        page: 1,
+        lastPage: 0,
+        page: 1
       }
     },
     mounted () {
@@ -57,13 +58,14 @@
     },
     methods: {
       _getUserList () {
+        this.loading = true
         getData('/zk/listUser', {
           page: this.page,
           pageSize: this.pageSize
         }).then((res) => {
           if (res.code === ERR_OK) {
-            
             let data = res.data.list
+            this.lastPage = res.data.totalPage
             this.total = res.data.notes
             this.tableData = []
             data.forEach(ele => {
@@ -80,11 +82,17 @@
           }
         })
       },
-      pullupHandler () {
+      pullupHandler (e) {
         this.page += 1
+        if (this.page > this.lastPage) {
+          this.loading = false
+          this.end = true
+          return
+        }
+        console.log(this.page)
         this._getUserList()
       },
-      pulldownHandler () {
+      pulldownHandler (e) {
         this.page = 1
         this._getUserList()
       }

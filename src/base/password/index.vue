@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { input } from 'utils/mixins.js'
+import { input } from '@/util/mixins.js'
 import XInput from '../input'
 import Icon from '../icon'
 export default {

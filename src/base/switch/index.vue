@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { input } from 'utils/mixins.js'
+import { input } from '@/util/mixins.js'
 export default {
   name: 'XSwitch',
   mixins: [input],
