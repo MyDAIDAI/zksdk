@@ -1,20 +1,15 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <tab></tab>
-      <!-- <keep-alive>
-        <router-view class="child-view"></router-view>
-      </keep-alive> -->
+      <router-view class="child-view"></router-view>      
     </transition>
   </div>
 </template>
 
 <script>
-import Tab from '@/base/tab/tab'
 export default {
   name: 'app',
   components: {
-    Tab
   },
   data () {
     return {
