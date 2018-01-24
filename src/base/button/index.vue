@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { button } from 'utils/mixins.js'
+import { button } from '@/util/mixins.js'
 export default {
   name: 'XButton',
   mixins: [button],

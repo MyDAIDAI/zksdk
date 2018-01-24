@@ -19,7 +19,7 @@
 <script>
 import Vue from 'vue'
 import {Actionsheet, ActionsheetItem} from '../actionsheet'
-import { input } from 'utils/mixins.js'
+import { input } from '@/util/mixins.js'
 
 export default {
   name: 'XSelect',

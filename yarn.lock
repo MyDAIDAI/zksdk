@@ -1689,6 +1689,12 @@ csso@~2.3.1:
     clap "^1.0.9"
     source-map "^0.5.3"
 
+cube-ui@^1.3.1:
+  version "1.3.1"
+  resolved "http://registry.npm.taobao.org/cube-ui/download/cube-ui-1.3.1.tgz#09cf4d6c62e77a1746031afd7c06c4c551ce780d"
+  dependencies:
+    better-scroll "^1.8.0"
+
 cuint@^0.2.2:
   version "0.2.2"
   resolved "http://registry.npm.taobao.org/cuint/download/cuint-0.2.2.tgz#408086d409550c2631155619e9fa7bcadc3b991b"

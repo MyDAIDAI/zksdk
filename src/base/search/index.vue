@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { input, historyPush } from 'utils/mixins.js'
+import { input, historyPush } from '@/util/mixins.js'
 import XInput from '../input'
 import Icon from '../icon'
 import {Flexbox, FlexboxItem} from '../flexbox'

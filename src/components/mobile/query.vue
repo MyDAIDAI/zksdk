@@ -6,9 +6,9 @@
           <flexbox align="center" class="list-view-item">
             <flexbox-item>
               <div style="padding: 10px; padding-left: 15px">
-                <h4 style="margin: 0px; color: #464c5b">{{item.username}}</h4>
+                <h4 style="margin: 0px; color: #464c5b">{{item.name}}</h4>
                 <div style="color: #657180; font-size: 12px">
-                  <span>用户类型：{{item.usertype}}</span> &nbsp; &nbsp; <span>通行状态：{{item.pass}}</span>
+                  <span>状态：{{item.status}}</span> &nbsp; &nbsp; <span>时间：{{item.time}}</span>
                 </div>
               </div>
             </flexbox-item>
@@ -25,7 +25,9 @@
   import ListView from '@/base/list-view'
   import Divider from '@/base/divider'
   import {Flexbox, FlexboxItem} from '@/base/flexbox'
+  // import Search from '@/base/search'
   import {getData, deleteData, putData} from '@/util/http'
+  import {dateToTimestamp, timestampToDate} from '@/util/date'
   import {ERR_OK} from '@/api/config'
   const PAGE_SIZE = 15
   export default {
@@ -35,12 +37,13 @@
       ListView,
       Flexbox,
       FlexboxItem,
-      Divider
+      Divider,
+      // Search
     },
     created () {
       this.title = '中控sdk'
       this.back = false
-      this.active = 0
+      this.active = 2
     },
     data () {
       return {
@@ -54,33 +57,38 @@
       }
     },
     mounted () {
-      this._getUserList()
+      this.getDataList()
     },
     methods: {
-      _getUserList () {
-        this.loading = true
-        getData('/zk/listUser', {
+      getDataList (type) {
+        if (type === 'query') {
+          this.page = 1
+        }
+        let start = ''
+        let end = ''
+        if (this.dateValue) {
+          start = this.dateValue[0] ? dateToTimestamp(this.dateValue[0]) : ''
+          end = this.dateValue[1] ? dateToTimestamp(this.dateValue[1]) : ''
+        }
+        getData('/zk/listRecord',{
+          name: this.queryData,
+          startTime: start,
+          endTime: end,
           page: this.page,
-          pageSize: this.pageSize
+          pageSize: PAGE_SIZE
         }).then((res) => {
           if (res.code === ERR_OK) {
-            let data = res.data.list
-            this.lastPage = res.data.totalPage
             this.total = res.data.notes
-            this.tableData = []
-            data.forEach(ele => {
-              let usertype = ele.privilege === 3 ? '管理员' : '普通用户'
-              let pass = ele.enabled ? '是' : '否'
-              this.list.push({
-                userid: ele.userId,
-                username: ele.name,
-                usertype: usertype,
-                pass: pass,
-                set: ele.enabled
-              })
+            let data = res.data.list ? eval(res.data.list) : []
+            this.list = data.map(ele => {
+              return {
+                name: ele.name,
+                status: ele.status,
+                time: timestampToDate(ele.time)
+              }
             })
           }
-        })
+        }) 
       },
       pullupHandler (e) {
         this.page += 1
