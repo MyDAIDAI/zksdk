@@ -8,7 +8,7 @@
         </div>
       </div>
     </layout>
-    <alert :open="checked" @on-confirm="() => {checked = false}">开门成功！</alert>
+    <alert :open="checked" @on-confirm="() => {checked = false}">{{alertMsg}}</alert>
   </div>
 </template>
 <script>
@@ -26,7 +26,8 @@ export default {
   },
   data () {
     return {
-      checked: false
+      checked: false,
+      alertMsg: ''
     }
   },
   created () {
@@ -38,8 +39,11 @@ export default {
     openDoor () {
       putData('/zk/openDoor', {}).then((res) => {
         if (res.code === ERR_OK) {
+          this.alertMsg = '开门成功!'
           this.checked = true                 
         } else {
+          this.alertMsg = res.msg
+          this.checked = true
         }
       })
     }
