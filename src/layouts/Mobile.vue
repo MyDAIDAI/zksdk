@@ -50,6 +50,11 @@
       active: {
         type: Number,
         default: 0
+      },
+    },
+    data () {
+      return {
+        link: ['/list', '/create', '/query', '/open']
       }
     },
     components: {
@@ -66,6 +71,11 @@
       }
     },
     methods: {
+      changeHandler (value) {
+        this.$router.push({
+          path: this.link[value]
+        })
+      }
     }
   }
 </script>
