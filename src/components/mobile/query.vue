@@ -1,6 +1,16 @@
 <template>
   <div>
     <layout :title="title" :isBack="back" :active="active">
+      <x-form class="fieldset" style="margin-bottom: 20px;display: fixed">
+        <x-form-item align="left">
+          <x-input placeholder="请输入查询姓名" v-model="query.name" @input="queryData"/>
+        </x-form-item>
+        <x-form-item align="left" validity-label="密码">
+          <x-input>
+            <daterange v-model="query.date" placeholder="请选择查询时间" @on-change="queryData"/>
+          </x-input>
+        </x-form-item>
+      </x-form>
       <list-view @on-pullup="pullupHandler" @on-pulldown="pulldownHandler" :loading="loading" :end="end">
         <template v-for="item in list">
           <flexbox align="center" class="list-view-item">
@@ -25,7 +35,9 @@
   import ListView from '@/base/list-view'
   import Divider from '@/base/divider'
   import {Flexbox, FlexboxItem} from '@/base/flexbox'
-  // import Search from '@/base/search'
+  import {XForm, XFormItem} from '@/base/form'
+  import XInput from '@/base/input'
+  import Daterange from '@/base/daterange'
   import {getData, deleteData, putData} from '@/util/http'
   import {dateToTimestamp, timestampToDate} from '@/util/date'
   import {ERR_OK} from '@/api/config'
@@ -38,7 +50,10 @@
       Flexbox,
       FlexboxItem,
       Divider,
-      // Search
+      XForm,
+      XFormItem,
+      XInput,
+      Daterange
     },
     created () {
       this.title = '中控sdk'
@@ -53,7 +68,11 @@
         total: 0,
         pageSize: PAGE_SIZE,
         lastPage: 0,
-        page: 1
+        page: 1,
+        query: {
+          name: '',
+          date: []
+        }
       }
     },
     mounted () {

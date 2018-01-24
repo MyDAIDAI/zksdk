@@ -4,9 +4,9 @@
       <div :class="[$cssPrefix + 'daterange-picker-header']">
         <tab :active.sync="tab" v-if="layout.length" ref="tab">
           <tab-item v-show="layout.indexOf('date') > -1">日历</tab-item>
-          <tab-item v-show="layout.indexOf('week') > -1">周历</tab-item>
+          <!-- <tab-item v-show="layout.indexOf('week') > -1">周历</tab-item>
           <tab-item v-show="layout.indexOf('month') > -1">月历</tab-item>
-          <tab-item v-show="layout.indexOf('quarter') > -1">季度</tab-item>
+          <tab-item v-show="layout.indexOf('quarter') > -1">季度</tab-item> -->
         </tab>
         <flexbox :class="[$cssPrefix + 'daterange-picker-controls']">
           <flexbox-item>
@@ -49,7 +49,7 @@
             >
             {{item.value.getDate()}}
           </div>
-          <div 
+          <!-- <div 
             v-if="tab===1"
             v-for="(item,i) in dateList"
             :key="item.value.getTime()"
@@ -57,9 +57,9 @@
             @click="changeHandler([dateList[Math.floor(i/7)*7].value,dateList[(Math.floor(i/7)+1)*7-1].value])"
             >
             {{item.value.getDate()}}
-          </div>
+          </div> -->
         </flexbox>
-        <flexbox :class="[$cssPrefix + 'daterange-picker-calendar']" v-else-if="tab===2" :style="{height: '6.8rem'}" align="center">
+        <!-- <flexbox :class="[$cssPrefix + 'daterange-picker-calendar']" v-else-if="tab===2" :style="{height: '6.8rem'}" align="center">
           <div 
             v-if="tab===2"
             v-for="(item, i) in monthList"
@@ -69,8 +69,8 @@
             >
             {{i+1}}月
           </div>
-        </flexbox>
-        <flexbox :class="[$cssPrefix + 'daterange-picker-calendar']" v-else-if="tab===3">
+        </flexbox> -->
+        <!-- <flexbox :class="[$cssPrefix + 'daterange-picker-calendar']" v-else-if="tab===3">
           <div 
             v-if="tab===3"
             v-for="(item,i) in quarterList"
@@ -80,7 +80,7 @@
             >
             {{i+1}}季度
           </div>
-        </flexbox>
+        </flexbox> -->
       </div>
       <divider></divider>
       <flexbox :class="[$cssPrefix + 'daterange-picker-footer']">
