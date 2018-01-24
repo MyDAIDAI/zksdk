@@ -6,6 +6,7 @@ import Mobile from './CMobile'
 import FastClick from 'fastclick'
 import router from './router/mobile'
 import './base/style/src/theme/index.scss'
+
 Vue.use(Router)
 FastClick.attach(document.body)
 Vue.config.productionTip = false

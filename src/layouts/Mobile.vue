@@ -7,7 +7,7 @@
         </button>
       </x-nav>
       <x-body slot="body">
-        <slot></slot>
+        <slot></slot>        
       </x-body>
       <tabbar slot="footer" :ripple="true" @on-change="changeHandler" :active="active">
         <tabbar-item>
