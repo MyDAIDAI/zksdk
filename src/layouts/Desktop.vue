@@ -55,7 +55,7 @@
             active: '2'
           }, {
             link: '/query',
-            title: '查询用户',
+            title: '查询记录',
             icon: 'el-icon-search',
             active: '3'
           }, {

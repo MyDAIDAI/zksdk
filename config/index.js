@@ -1,8 +1,8 @@
 'use strict'
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
-//const devRemoteUrl = 'http://39.106.50.22/ZkemProject/'
-const devRemoteUrl = 'http://39.106.50.22/ZkemProject/'
+// const devRemoteUrl = 'http://39.106.50.22/ZkemProject/'
+const devRemoteUrl = 'http://192.168.10.78:8080'
 const path = require('path')
 
 module.exports = {
