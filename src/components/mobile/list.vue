@@ -149,6 +149,7 @@ export default {
       border-radius: 5px
       transform: rotate(0deg) // fix 子元素超出边框圆角部分不隐藏的问题
       overflow: hidden
+      background: #fff
       .cube-scroll-item
         font-size: 16px
         color: #666
