@@ -1,5 +1,19 @@
 <template>
   <layout ref="layout" :title="title" :isBack="back" :active="active">
+    <div class="search">
+      <div class="search-input">
+        <x-form class="fieldset">
+          <x-form-item align="left">
+            <x-input placeholder="请输入查询姓名" v-model="search.input" @input="_getDataList('query')"/>            
+          </x-form-item>
+          <x-form-item align="left">
+             <x-input>
+                <daterange v-model="search.date" placeholder="请选择查询时间" @input="_getDataList('query')"/>
+              </x-input>
+          </x-form-item> 
+        </x-form>
+      </div>
+    </div>
     <div class="list" ref="list">
       <div class="scroll-list-wrap">
         <cube-scroll
@@ -26,18 +40,29 @@
 
 <script>
 import Layout from '@/layouts/Mobile'
+import {XForm, XFormItem} from '@/base/form'
 import {getData, deleteData, putData} from '@/util/http'
 import {dateToTimestamp, timestampToDate} from '@/util/date'
 import {ERR_OK} from '@/api/config'
 import {Scroll} from 'cube-ui'
+import XInput from '@/base/input'
+import Daterange from '@/base/daterange'
 export default {
   name: 'list',
   components: {
     Layout,    
+    XForm,
+    XFormItem,
+    XInput,
+    Daterange,
     CubeScroll: Scroll
   },
   data () {
     return {
+      search: {
+        input: '',
+        date: []
+      },
       total: 0,
       pageSize: 10,
       page: 1,
@@ -76,7 +101,7 @@ export default {
       let totalHeight = total.clientHeight
       let headerHeight = header.clientHeight
       let footerHeight = footer.clientHeight
-      this.$refs.list.style.height = totalHeight - headerHeight - footerHeight + 'px'
+      this.$refs.list.style.height = totalHeight - headerHeight - footerHeight - 20 + 'px'
     },
     _getDataList (type) {
       if (type === 'query') {
@@ -84,12 +109,12 @@ export default {
       }
       let start = ''
       let end = ''
-      if (this.dateValue) {
-        start = this.dateValue[0] ? dateToTimestamp(this.dateValue[0]) : ''
-        end = this.dateValue[1] ? dateToTimestamp(this.dateValue[1]) : ''
+      if (this.search.date) {
+        start = this.search.date[0] ? dateToTimestamp(this.search.date[0]) : ''
+        end = this.search.date[1] ? dateToTimestamp(this.search.date[1]) : ''
       }
       getData('/zk/listRecord',{
-        name: this.queryData,
+        name: this.search.input,
         startTime: start,
         endTime: end,
         page: this.page,
@@ -115,7 +140,6 @@ export default {
     },
     formateData (data) {
       let ret = []
-      console.log(data)
       ret = data.map(ele => {
         return {
           name: ele.name,
@@ -147,6 +171,11 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .search 
+    -moz-box-shadow:2px 2px 5px #ccc
+    -webkit-box-shadow:2px 2px 5px #ccc
+    box-shadow:2px 2px 5px #ccc
+    margin-bottom: 5px
   ul
     list-style-type: none
     -webkit-padding-start: 0

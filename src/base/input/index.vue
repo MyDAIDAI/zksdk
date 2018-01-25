@@ -28,7 +28,7 @@
         :class="$cssPrefix + 'input-clear-button'"
         @click="clearHandler"
         >
-        <icon>&#xe641;</icon>
+        <icon>&#xe69a;</icon>
       </button>
     </transition>
   </label>

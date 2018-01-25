@@ -44,6 +44,7 @@ export default {
   },
   computed: {
     myValue () {
+      console.log(this.value)
       if (this.value[0] && this.value[1]) {
         return this.value[0].format() + ' ~ ' + this.value[1].format()
       }
