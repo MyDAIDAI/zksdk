@@ -34,6 +34,7 @@
         </x-form>
       </x-body>
     </layout>
+    <alert :open="successChecked" @on-confirm="() => {this.$router.push('/list')}">用户信息修改成功！</alert>
     <alert :open="checked" @on-confirm="() => {checked = false}">{{alertMessage}}</alert>
     <confirm :open="confirmChecked" @on-close="() => {confirmChecked = false}" @on-confirm="modifyUser">确认修改该用户信息?</confirm>
   </div>
@@ -100,7 +101,8 @@
         ],
         alertMessage: '',
         checked: false,
-        confirmChecked: false
+        confirmChecked: false,
+        successChecked: false
       }
     },
     mounted () {
@@ -147,9 +149,7 @@
         }
         putData('/zk/updateUser', userData).then((res) => {
           if (res.code === ERR_OK) {
-            this.alertMessage = '用户信息修改成功!'
-            this.checked = true
-            this._getUserInfo()
+            this.successChecked = true
           } else {
             this.alertMessage = res.msg
             this.checked = true
