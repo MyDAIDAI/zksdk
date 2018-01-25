@@ -145,6 +145,7 @@
           privilege: parseInt(this.form.usertype),
           enabled: this.form.enabled
         }
+        console.log(userData.enabled)
         putData('/zk/updateUser', userData).then((res) => {
           if (res.code === ERR_OK) {
             this.alertMessage = '用户信息修改成功!'
