@@ -15,6 +15,7 @@
       </div>
     </div>
     <div class="list" ref="list">
+      <div v-if="!tableData.length" style="margin-top: 20px">没有数据哦！</div>
       <div class="scroll-list-wrap">
         <cube-scroll
           ref="scroll"
