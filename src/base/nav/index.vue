@@ -2,7 +2,7 @@
   <div :class="classes">
     <flexbox class="nav" align="center">
       <button :class="['btn-pull',$cssPrefix + 'header-back']" @click="backHandler" v-if="back!==false">
-        <icon>&#xe660;</icon>
+        <icon>&#xe697;</icon>
       </button>
       <flexbox-item :class="[$cssPrefix + 'header-title-center']">
         <slot name="title"></slot>

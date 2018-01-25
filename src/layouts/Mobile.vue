@@ -20,7 +20,7 @@
         </tabbar-item>
         <tabbar-item>
           <icon>&#xe6ac;</icon>
-          <span>查询用户</span>
+          <span>查询记录</span>
         </tabbar-item>
         <tabbar-item>
           <icon>&#xe725;</icon>
