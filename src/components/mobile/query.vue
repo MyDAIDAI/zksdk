@@ -101,7 +101,7 @@ export default {
       let totalHeight = total.clientHeight
       let headerHeight = header.clientHeight
       let footerHeight = footer.clientHeight
-      this.$refs.list.style.height = totalHeight - headerHeight - footerHeight - 20 + 'px'
+      this.$refs.list.style.height = totalHeight - headerHeight - footerHeight - 50 + 'px'
     },
     _getDataList (type) {
       if (type === 'query') {
@@ -124,7 +124,7 @@ export default {
           this.total = res.data.notes
           this.totalPage = res.data.totalPage
           let data = res.data.list ? eval(res.data.list) : []
-          if (type === 'pulldown') {
+          if (type === 'pulldown' || type === 'query') {
             this.tableData = []
             this.tableData.push(...this.formateData(data))
             return
