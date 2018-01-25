@@ -35,6 +35,7 @@
       </x-body>
     </layout>
     <alert :open="checked" @on-confirm="() => {checked = false}">{{alertMessage}}</alert>
+    <confirm :open="confirmChecked" @on-close="() => {confirmChecked = false}" @on-confirm="modifyUser">确认修改该用户信息?</confirm>
   </div>
 </template>
 
@@ -47,6 +48,7 @@
   import Divider from '@/base/divider'
   import XSwitch from '@/base/switch'
   import Alert from '@/base/alert'
+  import Confirm from '@/base/confirm'
   import XNav from '@/base/nav'
   import Icon from '@/base/icon'
   import XBody from '@/base/body'
@@ -66,17 +68,20 @@
       Alert,
       XNav,
       Icon,
-      XBody
+      XBody,
+      Confirm
     },
     created () {
       this.title = '修改',
       this.back = true
       this.active = 1
       this.passwordType = 'password'
+      this.form.userId = this.$route.params.id
     },
     data () {
       return {
         form: {
+          userId: '',
           name: '',
           password: '',
           usertype: '',
@@ -94,10 +99,27 @@
           }
         ],
         alertMessage: '',
-        checked: false
+        checked: false,
+        confirmChecked: false
       }
     },
+    mounted () {
+      this._getUserInfo()
+    },
     methods: {
+      _getUserInfo () {
+        getData('/zk/getUserInfo', {
+          userId: this.form.userId
+        }).then((res) => {
+          if (res.code === ERR_OK) {
+            let data = res.data
+            this.form.name = data.name
+            this.form.password = data.password
+            this.form.usertype = data.privilege.toString()
+            this.form.enabled = data.enabled
+          }
+        })
+      },
       validateData () {
         if (!this.form.name) {
           this.alertMessage = '请填写姓名!'
@@ -110,28 +132,24 @@
           return
         }
         if (this.form.name && this.form.usertype) {
-          this.createUser()
+          this.confirmChecked = true
           return
         }
       },
-      createUser () {
+      modifyUser () {
+        this.confirmChecked = false
         let userData = {
+          userId: this.form.userId,
           name: this.form.name,
           password: this.form.password,
           privilege: parseInt(this.form.usertype),
           enabled: this.form.enabled
         }
-        let data = Object.assign({}, userData, {userId: parseInt(Math.random() * 100 + 1).toString()})
-        postData('/zk/createUser', data).then((res) => {
+        putData('/zk/updateUser', userData).then((res) => {
           if (res.code === ERR_OK) {
-            this.alertMessage = '用户创建成功!'
+            this.alertMessage = '用户信息修改成功!'
             this.checked = true
-            this.form = {
-              name: '',
-              password: '',
-              usertype: '',
-              enabled: true
-            }
+            this._getUserInfo()
           } else {
             this.alertMessage = res.msg
             this.checked = true
