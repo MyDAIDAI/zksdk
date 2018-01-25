@@ -12,7 +12,6 @@
             <li @click="selectList(list,$event)" v-for="(list, index) in tableData" class="list-item border-1px" :key="index">
               <div class="list-content">
                 <h2 class="name">{{list.username}}</h2>
-                <!-- <p class="description">{{list.description}}</p> -->
                 <div class="extra">
                   <span class="type">用户类型：{{list.usertype}}</span><span>通行状态：{{list.pass}}</span>
                 </div>
@@ -30,16 +29,17 @@ import Layout from '@/layouts/Mobile'
 import {getData, deleteData, putData} from '@/util/http'
 import {ERR_OK} from '@/api/config'
 import {Scroll} from 'cube-ui'
+
 export default {
   name: 'list',
   components: {
-    Layout,    
+    Layout,
     CubeScroll: Scroll
   },
   data () {
     return {
       total: 0,
-      pageSize: 5,
+      pageSize: 10,
       page: 1,
       totalPage: 0,
       tableData: [],
