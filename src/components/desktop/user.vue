@@ -88,9 +88,9 @@
           link: `/user/${this.userId}`,
           title: '修改用户',
           icon: 'el-icon-edit',
-          active: '4'
+          active: '5'
         })
-        this.activeIndex = '4'
+        this.activeIndex = '5'
       }
     },
     mounted () {
