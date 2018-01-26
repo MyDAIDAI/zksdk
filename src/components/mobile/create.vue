@@ -58,7 +58,7 @@
       Alert
     },
     created () {
-      this.title = '中控sdk',
+      this.title = '门禁管理',
       this.back = false
       this.active = 1
       this.passwordType = 'password'

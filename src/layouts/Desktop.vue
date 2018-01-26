@@ -2,7 +2,7 @@
   <div class="layout">
     <el-container>
       <el-header>
-        <h1 style="text-align: center">中控SDK</h1>
+        <h1 style="text-align: center">门禁管理</h1>
       </el-header>
       <el-main>
         <el-row class="tac">
