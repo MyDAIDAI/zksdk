@@ -2,8 +2,8 @@
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 // const devRemoteUrl = 'http://39.106.50.22/ZkemProject/'
-// const devRemoteUrl = 'http://localhost:8080/ZkemProject/'
-const devRemoteUrl = 'http://localhost:8088'
+const devRemoteUrl = 'http://localhost:8080/ZkemProject/'
+// const devRemoteUrl = 'http://localhost:8088'
 const path = require('path')
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     proxyTable: {
       '/': {
         target: devRemoteUrl,
@@ -52,7 +52,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
