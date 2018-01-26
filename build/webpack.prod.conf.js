@@ -63,6 +63,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.index,
       template: 'index.html',
       inject: true,
+      chunks: ['manifest', 'vendor', 'desktop'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -77,6 +78,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.mobile,
       template: 'mobile.html',
       inject: true,
+      chunks: ['manifest', 'vendor', 'mobile'],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
