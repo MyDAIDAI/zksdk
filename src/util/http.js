@@ -1,7 +1,7 @@
 import axios from 'axios'
-
+const baseUrl = 'ZkemProject'
 export function getData (url, data) {
-  return axios.get(url, {
+  return axios.get(baseUrl + url, {
     params: data
   }).then((res) => {
     return Promise.resolve(res.data)
@@ -9,20 +9,20 @@ export function getData (url, data) {
 }
 export function postData (url, data) {
   let params = fromData(data)
-  return axios.post(url, params).then((res) => {
+  return axios.post(baseUrl + url, params).then((res) => {
     return Promise.resolve(res.data)
   })
 }
 
 export function putData (url, data) {
   let params = fromData(data)
-  return axios.put(url, params).then((res) => {
+  return axios.put(baseUrl + url, params).then((res) => {
     return Promise.resolve(res.data)
   })
 }
 
 export function deleteData (url, data) {
-  return axios.delete(url, {
+  return axios.delete(baseUrl + url, {
     params: data
   }).then((res) => {
     return Promise.resolve(res.data)
