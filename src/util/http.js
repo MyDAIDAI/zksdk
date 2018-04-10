@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'ZkemProject'
+const baseUrl = '/ZkemProject'
 export function getData (url, data) {
   return axios.get(baseUrl + url, {
     params: data

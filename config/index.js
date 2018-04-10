@@ -1,8 +1,8 @@
 'use strict'
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
-// const devRemoteUrl = 'http://39.106.50.22/ZkemProject/'
-const devRemoteUrl = 'http://localhost:8080/'
+const devRemoteUrl = 'http://39.106.50.22:8088/ZkemProject/'
+// const devRemoteUrl = 'http://192.168.10.78:8080/ZkemProject/'
 // const devRemoteUrl = 'http://localhost:8088'
 
 const path = require('path')
@@ -22,8 +22,8 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: '0.0.0.0', // can be overwritten by process.env.HOST
-    port: 8081, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: 'localhost', // can be overwritten by process.env.HOST
+    port: 8088, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
